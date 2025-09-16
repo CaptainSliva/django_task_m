@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    <style>
+        .completed-task {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+        .task-item {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'tasks:index' %}">Task Manager</a>
+            <div class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <span class="navbar-text me-3">Пользователь: {{ user.username }}</span>
+                {% else %}
+                    <a class="nav-link me-3" href="{% url 'users:login' %}">Войти</a>
+                    <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% bootstrap_messages %}
+        {% block content %}{% endblock %}
+    </div>
+
+    {% bootstrap_javascript jquery='full' %}
+</body>
+</html>

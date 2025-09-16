@@ -1,0 +1,52 @@
+{% extends "tasks/base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Мои задачи</h2>
+        </div>
+
+        {% if tasks %}
+            <div class="list-group">
+                {% for task in tasks %}
+                    <div class="list-group-item task-item {% if task.is_completed %}completed-task{% endif %}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 {% if task.is_completed %}text-muted{% endif %}">
+                                    {% if task.is_completed %}
+                                        <s>{{ task.title }}</s>
+                                    {% else %}
+                                        {{ task.title }}
+                                    {% endif %}
+                                </h6>
+                                <small class="text-muted">
+                                    Приоритет: {{ task.get_priority_display }} | 
+                                    Срок: {{ task.due_date|date:"d.m.Y H:i" }}
+                                </small>
+                            </div>
+                            <div class="btn-group btn-group-sm">
+                                {% if not task.is_completed %}
+                                    <a href="{% url 'tasks:task-complete' task.pk %}" class="btn btn-success">
+                                        Выполнить
+                                    </a>
+                                {% endif %}
+                                <a href="{% url 'tasks:task-edit' task.pk %}" class="btn btn-outline-primary">
+                                    Изменить
+                                </a>
+                                <a href="{% url 'tasks:task-delete' task.pk %}" class="btn btn-outline-danger">
+                                    Удалить
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <h5 class="text-muted">Задач пока нет</h5>
+                <a href="{% url 'tasks:task-create' %}" class="btn btn-primary mt-2">Создать задачу</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
