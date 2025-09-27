@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 def register(request):
@@ -15,15 +15,15 @@ def register(request):
             new_user = form.save()
             # Выполнение входа и перенаправление на домашнюю страницу.
             login(request, new_user)
-            return redirect('learning_logs:index')
+            return redirect('tasks:index')
     # Вывести пустую или недействительную форму.
     context = {'form': form}
     return render(request, 'users/register.html', context)
     
-#def logout_view(request):
-#    """Выводит пользователя из системы."""
-#    logout(request)
-#    return render(request, 'users/logout.html')
+def logout_view(request):
+    """Выводит пользователя из системы."""
+    logout(request)
+    return render(request, 'users/logout.html')
 
 
 def login_view(request):

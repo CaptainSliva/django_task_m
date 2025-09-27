@@ -25,10 +25,18 @@ SECRET_KEY = 'django-insecure-w5=l38yq@_)7uznt%3ige4wnmqd0vu44pi0=(m*2b%&x0_q7u8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/tasks/'
+LOGOUT_REDIRECT_URL = '/'
+
+#LOGIN_URL = 'users:login'
+#LOGIN_REDIRECT_URL = 'tasks:index'
+#LOGOUT_REDIRECT_URL = 'tasks:index'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

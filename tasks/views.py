@@ -50,3 +50,5 @@ def complete_task(request, pk):
     task.is_completed = True
     task.save()
     return redirect("tasks:index")
+    
+    
